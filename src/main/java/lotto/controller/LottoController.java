@@ -1,7 +1,9 @@
 package lotto.controller;
 
 import lotto.model.Lotto;
+import lotto.model.LottoChecker;
 import lotto.model.LottoProducer;
+import lotto.model.LottoResult;
 import lotto.util.InputValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -12,6 +14,7 @@ public class LottoController {
 
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final LottoChecker lottoChecker = new LottoChecker();
 
     public void run(){
         String InputPurchaseAmountInWon = inputView.getPurchaseAmountInWon();
@@ -19,10 +22,12 @@ public class LottoController {
         List<Lotto> lottoTickets = LottoProducer.produceByWon(purchaseAmountInWon);
         outputView.printPurchasedLottoTickets(lottoTickets);
 
-        String inputWinningNumber = inputView.getWinningNumber();
-        List<Integer> winningNumbers = InputValidator.parseWinningNumber(inputWinningNumber);
+        String inputWinningNumber = inputView.getWinningNumbers();
+        List<Integer> winningNumbers = InputValidator.parseWinningNumbers(inputWinningNumber);
 
         String inputBonusNumber = inputView.getBonusNumber();
         int bonusNumber = InputValidator.parseBonusNumber(inputBonusNumber);
+
+        LottoResult lottoResult = lottoChecker.countWinningTicket(lottoTickets, winningNumbers, bonusNumber);
     }
 }

@@ -18,5 +18,11 @@ public class LottoController {
         int purchaseAmountInWon = InputValidator.validatePurchaseAmountInWon(InputPurchaseAmountInWon);
         List<Lotto> lottoTickets = LottoProducer.produceByWon(purchaseAmountInWon);
         outputView.printPurchasedLottoTickets(lottoTickets);
+
+        String inputWinningNumber = inputView.getWinningNumber();
+        List<Integer> winningNumbers = InputValidator.parseWinningNumber(inputWinningNumber);
+
+        String inputBonusNumber = inputView.getBonusNumber();
+        int bonusNumber = InputValidator.parseBonusNumber(inputBonusNumber);
     }
 }

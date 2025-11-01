@@ -9,13 +9,19 @@ public class LottoProducer {
     private static final int LOTTO_NUMBER_COUNT = 6;
     private static final int LOTTO_NUMBER_MIN = 1;
     private static final int LOTTO_NUMBER_MAX = 45;
+    private static final int LOTTO_PRICE_UNIT = 1_000;
 
-    public static List<Lotto> produce(int amount) {
+    private static List<Lotto> produce(int amount) {
         List<Lotto> lottoTickets = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT);
             lottoTickets.add(new Lotto(numbers));
         }
         return lottoTickets;
+    }
+
+    public static List<Lotto> produceByWon(int amountInWon) {
+
+        return produce(amountInWon / LOTTO_PRICE_UNIT);
     }
 }

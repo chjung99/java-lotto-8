@@ -16,7 +16,7 @@ public class LottoController {
     private final OutputView outputView = new OutputView();
     private final LottoChecker lottoChecker = new LottoChecker();
 
-    public void run(){
+    public void run() {
         String InputPurchaseAmountInWon = inputView.getPurchaseAmountInWon();
         int purchaseAmountInWon = InputValidator.validatePurchaseAmountInWon(InputPurchaseAmountInWon);
         List<Lotto> lottoTickets = LottoProducer.produceByWon(purchaseAmountInWon);
@@ -28,6 +28,9 @@ public class LottoController {
         String inputBonusNumber = inputView.getBonusNumber();
         int bonusNumber = InputValidator.parseBonusNumber(inputBonusNumber);
 
-        LottoResult lottoResult = lottoChecker.countWinningTicket(lottoTickets, winningNumbers, bonusNumber);
+        LottoResult lottoResult = lottoChecker.getLottoResult(lottoTickets, winningNumbers, bonusNumber);
+        outputView.printWinningResult(lottoResult);
+
+        Double lottoProfitRate = lottoChecker.calculateProfitRate(purchaseAmountInWon, lottoResult);
     }
 }

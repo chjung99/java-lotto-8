@@ -12,7 +12,7 @@ public class InputView {
         return readLine();
     }
 
-    public String getWinningNumber() {
+    public String getWinningNumbers() {
         System.out.println(INPUT_WINNING_NUMBER_PROMPT);
         return readLine();
     }

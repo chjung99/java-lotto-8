@@ -79,7 +79,7 @@ public class InputValidator {
         }
     }
 
-    public static List<Integer> parseWinningNumber(String inputWinningNumber) {
+    public static List<Integer> parseWinningNumbers(String inputWinningNumber) {
         // 입력 형식 체크 (,으로 구분되는 지)
         String[] inputNumbers = parseStringToStringArray(inputWinningNumber);
 

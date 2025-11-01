@@ -32,5 +32,6 @@ public class LottoController {
         outputView.printWinningResult(lottoResult);
 
         Double lottoProfitRate = lottoChecker.calculateProfitRate(purchaseAmountInWon, lottoResult);
+        outputView.printLottoProfitRate(lottoProfitRate);
     }
 }

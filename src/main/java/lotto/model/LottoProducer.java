@@ -9,7 +9,7 @@ public class LottoProducer {
     private static final int LOTTO_NUMBER_COUNT = 6;
     private static final int LOTTO_NUMBER_MIN = 1;
     private static final int LOTTO_NUMBER_MAX = 45;
-    private static final int LOTTO_PRICE_UNIT = 1_000;
+    private static final int LOTTO_TICKET_PRICE_IN_WON = 1_000;
 
     private static List<Lotto> produce(int amount) {
         List<Lotto> lottoTickets = new ArrayList<>();
@@ -20,8 +20,15 @@ public class LottoProducer {
         return lottoTickets;
     }
 
-    public static List<Lotto> produceByWon(int amountInWon) {
-
-        return produce(amountInWon / LOTTO_PRICE_UNIT);
+    private static void validatePriceInWon(int price) {
+        if (price % LOTTO_TICKET_PRICE_IN_WON != 0) {
+            throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다");
+        }
     }
+
+    public static List<Lotto> produceByWon(int price) {
+        validatePriceInWon(price);
+        return produce(price / LOTTO_TICKET_PRICE_IN_WON);
+    }
+
 }

@@ -1,10 +1,7 @@
 package lotto.controller;
 
-import lotto.model.Lotto;
-import lotto.model.LottoChecker;
-import lotto.model.LottoProducer;
-import lotto.model.LottoResult;
-import lotto.util.InputValidator;
+import lotto.model.*;
+import lotto.util.InputParser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -17,21 +14,82 @@ public class LottoController {
     private final LottoChecker lottoChecker = new LottoChecker();
 
     public void run() {
-        String InputPurchaseAmountInWon = inputView.getPurchaseAmountInWon();
-        int purchaseAmountInWon = InputValidator.validatePurchaseAmountInWon(InputPurchaseAmountInWon);
-        List<Lotto> lottoTickets = LottoProducer.produceByWon(purchaseAmountInWon);
-        outputView.printPurchasedLottoTickets(lottoTickets);
 
-        String inputWinningNumber = inputView.getWinningNumbers();
-        List<Integer> winningNumbers = InputValidator.parseWinningNumbers(inputWinningNumber);
+        LottoOrder lottoOrder = processOrder();
+        outputView.printOrderedLottoTickets(lottoOrder.getLottoTickets());
 
-        String inputBonusNumber = inputView.getBonusNumber();
-        int bonusNumber = InputValidator.parseBonusNumber(inputBonusNumber);
+        LottoResult lottoResult = generateLottoResult();
 
-        LottoResult lottoResult = lottoChecker.getLottoResult(lottoTickets, winningNumbers, bonusNumber);
-        outputView.printWinningResult(lottoResult);
+        LottoOrderResult lottoOrderResult = generateLottoOrderResult(lottoOrder, lottoResult);
+        outputView.printWinningResult(lottoOrderResult);
 
-        Double lottoProfitRate = lottoChecker.calculateProfitRate(purchaseAmountInWon, lottoResult);
-        outputView.printLottoProfitRate(lottoProfitRate);
+
+        Double profitRate = calculateProfitRate(lottoOrder, lottoOrderResult);
+        outputView.printLottoProfitRate(profitRate);
     }
+
+    private LottoOrder getLottoOrder() {
+        while (true) {
+            try {
+                String inputOrderPrice = inputView.getOrderPrice();
+
+                int orderPrice = InputParser.parseNaturalNumber(inputOrderPrice);
+                List<Lotto> lottoTickets = LottoProducer.produceByWon(orderPrice);
+
+                return new LottoOrder(orderPrice, lottoTickets);
+            } catch (IllegalArgumentException e) {
+                inputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private BonusNumber getBonusNumber() {
+
+        while (true) {
+            try {
+                String inputBonusNumber = inputView.getBonusNumber();
+                return new BonusNumber(InputParser.parseNaturalNumber(inputBonusNumber));
+            } catch (IllegalArgumentException e) {
+                inputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private Lotto getWinningLotto() {
+        while (true) {
+            try {
+                String inputWinningNumber = inputView.getWinningNumbers();
+                List<Integer> numbers = InputParser.parseNaturalNumberList(inputWinningNumber);
+                return new Lotto(numbers);
+
+            } catch (IllegalArgumentException e) {
+                inputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private LottoOrder processOrder() {
+        return getLottoOrder();
+    }
+
+    private LottoResult generateLottoResult() {
+
+        Lotto winningLotto = getWinningLotto();
+        BonusNumber bonusNumber = getBonusNumber();
+
+        UserInputWinningNumberProvider userInputWinningNumberProvider = new UserInputWinningNumberProvider(winningLotto, bonusNumber);
+        LotteryDrum lotteryDrum = new LotteryDrum(userInputWinningNumberProvider);
+
+        return lotteryDrum.getLottoResult();
+    }
+
+    private LottoOrderResult generateLottoOrderResult(LottoOrder lottoOrder, LottoResult lottoResult) {
+        return lottoChecker.getOrderResult(lottoOrder, lottoResult);
+    }
+
+    private Double calculateProfitRate(LottoOrder lottoOrder, LottoOrderResult lottoOrderResult) {
+        return lottoChecker.calculateProfitRate(lottoOrder, lottoOrderResult);
+
+    }
+
 }

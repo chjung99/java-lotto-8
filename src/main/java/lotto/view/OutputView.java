@@ -28,6 +28,10 @@ public class OutputView {
         Map<Integer, Integer> rankCounts = lottoOrderResult.getRankCounts();
         LottoRankMapper lottoRankMapper = new LottoRankMapper();
 
+        printWinningStatistics(lottoRankMapper, rankCounts);
+    }
+
+    private void printWinningStatistics(LottoRankMapper lottoRankMapper, Map<Integer, Integer> rankCounts) {
         for (int matchCount = 3; matchCount <= 6; matchCount++) {
             int rank = lottoRankMapper.getRankByMatchRecord(new MatchRecord(matchCount, false));
 
@@ -39,7 +43,6 @@ public class OutputView {
                 System.out.println(String.format(OUTPUT_WINNING_WITH_BONUS_RESULT_FORMAT,
                         matchCount, "", LottoPrize.getPrizePromptByRank(bonusRank), rankCounts.get(bonusRank)));
             }
-
         }
     }
 

@@ -23,4 +23,22 @@ public enum LottoPrize {
     public String getPrizeAmountPrompt() {
         return prizeAmountPrompt;
     }
+
+    public static int getPrizeByRank(int rank) {
+        for (LottoPrize prize: LottoPrize.values()) {
+            if (prize.ordinal() == rank - 1) {
+                return prize.getPrizeAmount();
+            }
+        }
+        throw new IllegalArgumentException("[ERROR] 정의되지 않은 로또 등수입니다.");
+    }
+
+    public static String getPrizePromptByRank(int rank) {
+        for (LottoPrize prize: LottoPrize.values()) {
+            if (prize.ordinal() == rank - 1) {
+                return prize.getPrizeAmountPrompt();
+            }
+        }
+        throw new IllegalArgumentException("[ERROR] 정의되지 않은 로또 등수입니다.");
+    }
 }

@@ -84,7 +84,7 @@ public class LottoController {
     }
 
     private LottoOrderResult generateLottoOrderResult(LottoOrder lottoOrder, LottoResult lottoResult) {
-        return lottoChecker.getOrderResult(lottoOrder, lottoResult);
+        return lottoChecker.check(lottoOrder, lottoResult);
     }
 
     private Double calculateProfitRate(LottoOrder lottoOrder, LottoOrderResult lottoOrderResult) {

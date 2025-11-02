@@ -12,7 +12,6 @@ public class LottoResultAggregator {
     }
 
     public LottoOrderResult aggregate(LottoOrder lottoOrder, LottoResult lottoResult) {
-
         int bonusNumberValue = lottoResult.getBonusNumber().getValue();
 
         Map<Integer, Integer> rankCounts = new HashMap<>();
@@ -26,8 +25,6 @@ public class LottoResultAggregator {
             if (rank == -1) continue;
             rankCounts.put(rank, rankCounts.get(rank) + 1);
         }
-
         return new LottoOrderResult(rankCounts);
     }
-
 }

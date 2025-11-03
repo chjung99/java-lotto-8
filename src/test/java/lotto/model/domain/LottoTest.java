@@ -31,4 +31,10 @@ class LottoTest {
         List<Integer> expected = List.of(3, 7, 12, 22, 33, 45);
         assertThat(expected).isEqualTo(lotto.getNumbers());
     }
+
+    @Test
+    void 로또_번호가_1과_45_사이가_아니면_예외가_발생한다() {
+        assertThatThrownBy(() -> new Lotto(List.of(-1, 0, 46, 47, 48, 48)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

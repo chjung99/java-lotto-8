@@ -1,6 +1,9 @@
 package lotto.controller;
 
-import lotto.model.*;
+import lotto.model.domain.*;
+import lotto.model.service.LottoChecker;
+import lotto.model.service.LottoProducer;
+import lotto.model.service.UserInputWinningNumberProvider;
 import lotto.util.InputParser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -15,7 +18,7 @@ public class LottoController {
 
     public void run() {
 
-        LottoOrder lottoOrder = processOrder();
+        LottoOrder lottoOrder = getLottoOrder();
         outputView.printOrderedLottoTickets(lottoOrder.getLottoTickets());
 
         LottoResult lottoResult = generateLottoResult();
@@ -66,10 +69,6 @@ public class LottoController {
                 inputView.printError(e.getMessage());
             }
         }
-    }
-
-    private LottoOrder processOrder() {
-        return getLottoOrder();
     }
 
     private LottoResult generateLottoResult() {

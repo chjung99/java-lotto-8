@@ -1,6 +1,10 @@
 package lotto.view;
 
-import lotto.model.*;
+import lotto.model.domain.Lotto;
+import lotto.model.domain.LottoOrderResult;
+import lotto.model.domain.MatchRecord;
+import lotto.model.domain.LottoPrize;
+import lotto.model.service.LottoRankMapper;
 
 import java.util.List;
 import java.util.Map;

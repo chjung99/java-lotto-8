@@ -1,4 +1,9 @@
-package lotto.model;
+package lotto.model.service;
+
+import lotto.model.domain.LottoOrderResult;
+import lotto.model.domain.LottoResult;
+import lotto.model.domain.Lotto;
+import lotto.model.domain.LottoOrder;
 
 import java.util.HashMap;
 import java.util.List;

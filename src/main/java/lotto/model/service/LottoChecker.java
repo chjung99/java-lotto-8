@@ -1,4 +1,8 @@
-package lotto.model;
+package lotto.model.service;
+
+import lotto.model.domain.LottoOrder;
+import lotto.model.domain.LottoOrderResult;
+import lotto.model.domain.LottoResult;
 
 public class LottoChecker {
     private final LottoResultAggregator lottoResultAggregator;

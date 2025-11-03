@@ -1,4 +1,6 @@
-package lotto.model;
+package lotto.model.domain;
+
+import lotto.model.service.WinningNumberProvider;
 
 public class LotteryDrum {
     private final LottoResult lottoResult;

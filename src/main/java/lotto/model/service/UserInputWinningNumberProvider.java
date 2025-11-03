@@ -1,6 +1,10 @@
-package lotto.model;
+package lotto.model.service;
 
-public class UserInputWinningNumberProvider implements WinningNumberProvider{
+import lotto.model.domain.LottoResult;
+import lotto.model.domain.BonusNumber;
+import lotto.model.domain.Lotto;
+
+public class UserInputWinningNumberProvider implements WinningNumberProvider {
     private final Lotto winningLotto;
     private final BonusNumber bonusNumber;
 

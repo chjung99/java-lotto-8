@@ -1,4 +1,7 @@
-package lotto.model;
+package lotto.model.service;
+
+import lotto.model.domain.MatchRecord;
+import lotto.model.domain.Lotto;
 
 import java.util.List;
 

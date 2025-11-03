@@ -1,4 +1,4 @@
-package lotto.model;
+package lotto.model.domain;
 
 public enum LottoPrize {
     RANK_1(2_000_000_000, "2,000,000,000원"),

@@ -1,4 +1,6 @@
-package lotto.model;
+package lotto.model.service;
+
+import lotto.model.domain.MatchRecord;
 
 import java.util.HashMap;
 import java.util.Map;

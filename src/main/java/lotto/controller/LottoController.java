@@ -46,12 +46,12 @@ public class LottoController {
         }
     }
 
-    private BonusNumber getBonusNumber() {
+    private BonusNumber getBonusNumber(Lotto winningLotto) {
 
         while (true) {
             try {
                 String inputBonusNumber = inputView.getBonusNumber();
-                return new BonusNumber(InputParser.parseNaturalNumber(inputBonusNumber));
+                return new BonusNumber(InputParser.parseNaturalNumber(inputBonusNumber), winningLotto);
             } catch (IllegalArgumentException e) {
                 inputView.printError(e.getMessage());
             }
@@ -74,7 +74,7 @@ public class LottoController {
     private LottoResult generateLottoResult() {
 
         Lotto winningLotto = getWinningLotto();
-        BonusNumber bonusNumber = getBonusNumber();
+        BonusNumber bonusNumber = getBonusNumber(winningLotto);
 
         UserInputWinningNumberProvider userInputWinningNumberProvider = new UserInputWinningNumberProvider(winningLotto, bonusNumber);
         LotteryDrum lotteryDrum = new LotteryDrum(userInputWinningNumberProvider);
